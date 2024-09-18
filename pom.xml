@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>PKGen3</groupId>
-  <artifactId>PKGen3</artifactId>
-  <version>1.1</version>
+  <artifactId>Gen3Predictor</artifactId>
+  <version>1.3a</version>
   <name>Gen3Predictor</name>
  <build>
     <sourceDirectory>src</sourceDirectory>
