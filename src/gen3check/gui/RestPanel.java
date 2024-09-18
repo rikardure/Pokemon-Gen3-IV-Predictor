@@ -119,7 +119,7 @@ public class RestPanel extends JPanel{
 								g.drawString(Integer.toString(selectedPokemon.IV.spa), 115 - Integer.toString(selectedPokemon.IV.spa).length() * 4, 38);
 								g.drawString(Integer.toString(selectedPokemon.IV.spd), 147 - Integer.toString(selectedPokemon.IV.spd).length() * 4, 38);
 								g.drawString(Integer.toString(selectedPokemon.IV.spe), 179 - Integer.toString(selectedPokemon.IV.spe).length() * 4, 38);
-								g.drawString(selectedPokemon.getHiddenPowerType().toString() + " " + Integer.toString(selectedPokemon.getHiddenPowerDamage()), 85, 64);
+								g.drawString(" " + selectedPokemon.getNature().toString(), 85, 64);
 							}
 						
 						});
@@ -138,7 +138,7 @@ public class RestPanel extends JPanel{
 								g.drawString(Integer.toString(selectedPokemon.stat.spa), 115 - Integer.toString(selectedPokemon.stat.spa).length() * 4, 38);
 								g.drawString(Integer.toString(selectedPokemon.stat.spd), 147 - Integer.toString(selectedPokemon.stat.spd).length() * 4, 38);
 								g.drawString(Integer.toString(selectedPokemon.stat.spe), 179 - Integer.toString(selectedPokemon.stat.spe).length() * 4, 38);
-								g.drawString(selectedPokemon.getHiddenPowerType().toString() + " " + Integer.toString(selectedPokemon.getHiddenPowerDamage()), 85, 64);
+								g.drawString(" " + selectedPokemon.getNature().toString(), 85, 64);
 							}
 						
 						});
