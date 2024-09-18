@@ -49,7 +49,7 @@ public class RestPanel extends JPanel{
 		this.selectedPokemon = new Pokemon();
 		this.chkNature = new JCheckBox[Nature.NATURE_N];
 		this.pkmFoundPanel = new PokemonFoundPanel(mw,c,this);
-		this.BOXPANEL = new ImageIcon(RestPanel.class.getResource("/image/thebox.png")).getImage();
+		this.BOXPANEL = new ImageIcon(RestPanel.class.getResource("/image/thebox2.png")).getImage();
 		this.setLayout(new BorderLayout());
 		this.add(new JPanel(){
 			{
