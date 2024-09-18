@@ -27,4 +27,5 @@ public class FileUtil {
 	public static final String POKEMON_EVOLUTION = "pokemonEvolution.csv";
 	public static final String POKEMON_EXP = "pokemonExp.csv";
 	public static final String POKEMON_EXP_TYPE = "pokemonExpType.csv";
+	public static final String SAVED_PRESET = "preset.json";
 }

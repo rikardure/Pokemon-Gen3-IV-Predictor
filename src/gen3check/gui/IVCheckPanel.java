@@ -8,11 +8,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,8 +26,12 @@ import javax.swing.border.TitledBorder;
 import gen3check.Controller;
 import gen3check.pokemon.data.PokemonData;
 import gen3check.pokemon.data.StatPack;
+import gen3check.preset.PresetDTO;
+import gen3check.preset.PresetRepo;
 import gen3check.util.ComboBoxUtil;
 import gen3check.util.DataListUtil;
+import gen3check.pokemon.data.Data;
+
 
 public class IVCheckPanel extends JPanel{
 
@@ -182,9 +189,12 @@ public class IVCheckPanel extends JPanel{
 						});
 					}
 				}, BorderLayout.CENTER);
+				this.add(new JPanel() {
+				
+					{
 				this.add(new JButton("Search"){
 					{
-						this.setPreferredSize(new Dimension(150,40));
+						this.setPreferredSize(new Dimension(70,40));
 						this.addActionListener(new ActionListener(){
 							@Override
 							public void actionPerformed(ActionEvent arg0) {
@@ -245,8 +255,119 @@ public class IVCheckPanel extends JPanel{
 							}
 						});
 					}
+				}, BorderLayout.NORTH);
+				
+				this.add(new JButton("Save") {
+					{
+						this.setPreferredSize(new Dimension(70, 30));
+						this.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent arg0) {
+								if (txtHP.isEmpty()) txtHP.setText("0");
+								for (int i = 0; i < 3; i++){
+									if (txtAtk[i].isEmpty()) txtAtk[i].setText("0");
+									if (txtDef[i].isEmpty()) txtDef[i].setText("0");
+									if (txtSpa[i].isEmpty()) txtSpa[i].setText("0");
+									if (txtSpd[i].isEmpty()) txtSpd[i].setText("0");
+									if (txtSpe[i].isEmpty()) txtSpe[i].setText("0");
+								}
+								if (txtID.isEmpty()) txtID.setText("0");
+								if (Integer.parseInt(txtID.getText()) > 65535) txtID.setText("0");
+								if (Integer.parseInt(txtHP.getText()) > 31) txtHP.setText("31");
+								for (int i = 0; i < 3; i++){
+									if (Integer.parseInt(txtAtk[i].getText()) > 31) txtAtk[i].setText("31");
+									if (Integer.parseInt(txtDef[i].getText()) > 31) txtDef[i].setText("31");
+									if (Integer.parseInt(txtSpa[i].getText()) > 31) txtSpa[i].setText("31");
+									if (Integer.parseInt(txtSpd[i].getText()) > 31) txtSpd[i].setText("31");
+									if (Integer.parseInt(txtSpe[i].getText()) > 31) txtSpe[i].setText("31");
+								}
+								if (txtMinFrame.isEmpty()) txtMinFrame.setText("0");
+								if (txtMaxFrame.isEmpty()) txtMaxFrame.setText("0");
+								if (Integer.parseInt(txtMaxFrame.getText()) < Integer.parseInt(txtMinFrame.getText())){
+									txtMaxFrame.setText(txtMinFrame.getText());
+								}
+								
+								List<Boolean> natures = new ArrayList<>();
+								JCheckBox[] boxes = rp.getNatures();
+								for (int i = 0; i< rp.getNatures().length; i++)
+								{
+									natures.add(boxes[i].isSelected());
+								}
+								Data selectedPokemon = (Data)cmbPokemon.getSelectedItem();
+
+								PresetDTO preset = new PresetDTO(selectedPokemon.getID(),
+										Integer.parseInt(txtHP.getText()),
+										Integer.parseInt(txtAtk[0].getText()),
+										Integer.parseInt(txtAtk[1].getText()),
+										Integer.parseInt(txtAtk[2].getText()),
+										Integer.parseInt(txtDef[0].getText()),
+										Integer.parseInt(txtDef[1].getText()),
+										Integer.parseInt(txtDef[2].getText()),
+										Integer.parseInt(txtSpa[0].getText()),
+										Integer.parseInt(txtSpa[1].getText()),
+										Integer.parseInt(txtSpa[2].getText()),
+										Integer.parseInt(txtSpd[0].getText()),
+										Integer.parseInt(txtSpd[1].getText()),
+										Integer.parseInt(txtSpd[2].getText()),
+										Integer.parseInt(txtSpe[0].getText()),
+										Integer.parseInt(txtSpe[1].getText()),
+										Integer.parseInt(txtSpe[2].getText()),
+										Integer.parseInt(txtMinFrame.getText()),
+										Integer.parseInt(txtMaxFrame.getText()),
+										natures);
+								PresetRepo repository =	new PresetRepo();
+								repository.save(preset);
+							}
+						});
+					}
+				}, BorderLayout.WEST);
+				
+				this.add(new JButton("Load") {
+					{
+						this.setPreferredSize(new Dimension(70, 30));
+						this.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent arg0) {
+
+							
+								PresetRepo repository =	new PresetRepo();
+								PresetDTO preset = repository.load();
+								
+								cmbPokemon.setSelectedItem(ComboBoxUtil.getComboBoxItem(cmbPokemon, preset.getPokemonId()));
+								txtAtk[0].setText(preset.getAttack_minus().toString());
+								txtAtk[1].setText(preset.getAttack_neutral().toString());
+								txtAtk[2].setText(preset.getAttack_plus().toString());
+								txtDef[0].setText(preset.getDefense_minus().toString());
+								txtDef[1].setText(preset.getDefense_neutral().toString());
+								txtDef[2].setText(preset.getDefense_plus().toString());
+								txtSpa[0].setText(preset.getSpAtk_minus().toString());
+								txtSpa[1].setText(preset.getSpAtk_neutral().toString());
+								txtSpa[2].setText(preset.getSpAtk_plus().toString());
+								txtSpd[0].setText(preset.getSpDef_minus().toString());
+								txtSpd[1].setText(preset.getSpDef_neutral().toString());
+								txtSpd[2].setText(preset.getSpDef_plus().toString());
+								txtSpe[0].setText(preset.getSpeed_minus().toString());
+								txtSpe[1].setText(preset.getSpeed_neutral().toString());
+								txtSpe[2].setText(preset.getSpeed_plus().toString());
+								txtHP.setText(preset.getHP().toString());
+								txtMinFrame.setText(preset.getMin_frame().toString());
+								txtMaxFrame.setText(preset.getMax_frame().toString());
+								
+								JCheckBox[] boxes = rp.getNatures();
+								List<Boolean> natures = preset.getNatures();
+								for(int i = 0; i < rp.getNatures().length; i++)
+								{
+									boxes[i].setSelected(natures.get(i));
+								}
+								
+							}
+						});
+					}
+				}, BorderLayout.EAST);
+				
+				
+					}
 				}, BorderLayout.SOUTH);
-					
 			}
 		}, BorderLayout.CENTER);
 		
