@@ -3,13 +3,13 @@ package gen3check.preset;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gen3check.util.FileUtil;
 
 public class PresetRepo {
 	private static final String FULL_PATH =  FileUtil.SAVED_PRESET;
-	private static final String SHORT_PATH = "/database/" + FileUtil.SAVED_PRESET;
 	private ObjectMapper mapper = new ObjectMapper();
 	public void save(PresetDTO preset)
 	{

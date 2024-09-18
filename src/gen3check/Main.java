@@ -1,7 +1,6 @@
 package gen3check;
 
 import gen3check.gui.MainWindow;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.swing.UIManager;
 

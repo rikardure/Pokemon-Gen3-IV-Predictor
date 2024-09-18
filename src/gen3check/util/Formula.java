@@ -24,8 +24,8 @@ public class Formula {
         return exp;
 	}
 	
-	/*Damage Formula = (((((((Level × 2 ÷ 5) + 2) × BasePower × [Sp]Atk ÷ 50) ÷ [Sp]Def) × Mod1) + 2) × 
-                 CH × Mod2 × R ÷ 100) × STAB × Type1 × Type2 × Mod3)*/
+	 
+    
 	public static int calculateDamage(int level, int basepower, int atk, int def, float mod1, int crit, float mod2, int rand, float stab, float supereffect1, float supereffect2, float mod3){
 		int aux = level * 2 / 5;
 		aux = aux + 2;
