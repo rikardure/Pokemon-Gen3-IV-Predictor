@@ -52,6 +52,7 @@ public class PokemonFoundPanel extends JPanel{
 		this.c = c;
 		this.setLayout(new BorderLayout());
 		this.setBorder(new TitledBorder("Pokemon Found List"));
+		model.addColumn("Score");
 		model.addColumn("Frame");
 		model.addColumn("Time");
 		model.addColumn("Nature");
@@ -93,7 +94,56 @@ public class PokemonFoundPanel extends JPanel{
 									else if (gr == GenderRate.Genderless) gender_str = "-";
 									int frame_aux = pokemonList.get(i).getFrame();
 									HiddenPowerRNG hpow = new HiddenPowerRNG(pokemon_aux);
+									
+									//calculate score
+//									int score = pokemon_aux.hp * 5 + 
+									//rash with good hp and defense, not late highest prio is the king
+									
+									//1,610 frame window
+									//rash gives 250 points
+									//ln hp,
+									
+									//to set stats at max = 1451 (if you roll a rash)
+//									frame_aux = 3900;
+//									pokemon_aux.hp=31;
+//									pokemon_aux.atk=31;
+//									pokemon_aux.spe=31;
+//									pokemon_aux.spd=31;
+//									pokemon_aux.def=31;
+//									pokemon_aux.spa=31;
+									double normalizedTotal = 0;
+									
+									if(pokemon_aux.spa > 28 && (pokemon_aux.nature.getName().equals("Rash") || pokemon_aux.nature.getName().equals("Modest") || pokemon_aux.nature.getName().equals("Mild")))
+									{
+										int frameScore = (frame_aux - 3900)/10;
+										
+										double natureScore = pokemon_aux.nature.getName().equals("Rash") ? 250 : 0;
+										double hpScore = Math.max(Math.log(pokemon_aux.hp)*100, 0);
+										double defScore = Math.max(Math.log(pokemon_aux.def)*80, 0);
+										double atkScore = Math.max(Math.log(pokemon_aux.atk)*65, 0);
+										double speScore = Math.max(Math.log(pokemon_aux.spe)*55, 0);
+										double spdScore = Math.max(Math.log(pokemon_aux.spd)*10, 0);
+										double total = hpScore + defScore + atkScore + speScore + spdScore + natureScore -frameScore;
+										
+										 // Original scale: min 0, max 1451
+								        double originalMin = 0;
+								        double originalMax = 1451;
+								        
+								        // New scale: min 1, max 100, human readable
+								        double newMin = 30;
+								        double newMax = 105;
+								        normalizedTotal = ((total - originalMin) / (originalMax - originalMin)) * (newMax - newMin) + newMin;
+								        
+//								        System.out.println(pokemon_aux.nature.getName());
+//								        System.out.println("FrameScore -"+frameScore);
+//										System.out.println("HP: " + (int)hpScore + "\nDEF: " + (int)defScore +"\nAT: " + (int)atkScore +"\nSPE: " + (int)speScore +"\nSPD: " + (int)spdScore + "\nNature score: " + (int)natureScore + "\nTotal score: " + (int)total);
+//										System.out.println("Normalized total: " + (int) normalizedTotal);
+									}
+									
+									
+									
 									model.addRow(new Object[]{
+											(int)normalizedTotal,
 											frame_aux,
 											Integer.toString(frame_aux / 3600) + ":" + String.format("%02d",(frame_aux / 60) % 60) + "." + String.format("%02d",(frame_aux % 60) * 100 / 60),
 											pokemon_aux.nature,
@@ -121,7 +171,7 @@ public class PokemonFoundPanel extends JPanel{
 			}	
 		};
 		// Setting sizes of some columns
-		for (int i = 3; i < 10; i++){
+		for (int i = 4; i < 10; i++){
 			this.table.getColumnModel().getColumn(i).setPreferredWidth(35);
 		}
 		
@@ -132,7 +182,7 @@ public class PokemonFoundPanel extends JPanel{
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
 				if (table.getSelectedRow() == -1) return;
-				int frame = (int) table.getModel().getValueAt(table.getSelectedRow(), 0);
+				int frame = (int) table.getModel().getValueAt(table.getSelectedRow(), 1);
 				PokemonRNG pRNG = new PokemonMethod1(new Seed(c.getTrainerID()), frame);
 				Pokemon pokemon = new Pokemon(
 						c.getPokemonID(), 5, new StatPack(pRNG.hp, pRNG.atk, pRNG.def, pRNG.spa, pRNG.spd, pRNG.spe),
@@ -169,7 +219,35 @@ public class PokemonFoundPanel extends JPanel{
 			else if (gr == GenderRate.Genderless) gender_str = "-";
 			int frame_aux = pokemonList.get(i).getFrame();
 			HiddenPowerRNG hpow = new HiddenPowerRNG(pokemon_aux);
-			model.addRow(new Object[]{
+			
+			double normalizedTotal = 0;
+			if(pokemon_aux.spa > 28 && (pokemon_aux.nature.getName().equals("Rash") || pokemon_aux.nature.getName().equals("Modest") || pokemon_aux.nature.getName().equals("Mild")))
+			{
+				int frameScore = (frame_aux - 3900)/9;
+				
+				double natureScore = pokemon_aux.nature.getName().equals("Rash") ? 250 : 0;
+				double hpScore = Math.max(Math.log(pokemon_aux.hp)*100, 0);
+				double defScore = Math.max(Math.log(pokemon_aux.def)*80, 0);
+				double atkScore = Math.max(Math.log(pokemon_aux.atk)*65, 0);
+				double speScore = Math.max(Math.log(pokemon_aux.spe)*55, 0);
+				double spdScore = Math.max(Math.log(pokemon_aux.spd)*10, 0);
+				double total = hpScore + defScore + atkScore + speScore + spdScore + natureScore -frameScore;
+				
+				 // Original scale: min 0, max 1451
+		        double originalMin = 0;
+		        double originalMax = 1451;
+		        
+		        // New scale: min 1, max 100, human readable
+		        double newMin = 30;
+		        double newMax = 105;
+		        normalizedTotal = ((total - originalMin) / (originalMax - originalMin)) * (newMax - newMin) + newMin;
+//		        System.out.println(pokemon_aux.nature.getName());
+//		        System.out.println("FrameScore -"+frameScore);
+//				System.out.println("HP: " + (int)hpScore + "\nDEF: " + (int)defScore +"\nAT: " + (int)atkScore +"\nSPE: " + (int)speScore +"\nSPD: " + (int)spdScore + "\nNature score: " + (int)natureScore + "\nTotal score: " + (int)total);
+//				System.out.println("Normalized total: " + (int) normalizedTotal);
+			}
+			
+			model.addRow(new Object[]{ (int)normalizedTotal,
 					frame_aux,
 					Integer.toString(frame_aux / 3600) + ":" + String.format("%02d",(frame_aux / 60) % 60) + "." + String.format("%02d",(frame_aux % 60) * 100 / 60),
 					pokemon_aux.nature,
