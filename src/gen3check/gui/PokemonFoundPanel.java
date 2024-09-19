@@ -238,24 +238,39 @@ public class PokemonFoundPanel extends JPanel{
 			double normalizedTotal = 0;
 			if(pokemon_aux.spa > 28 && (pokemon_aux.nature.getName().equals("Rash") || pokemon_aux.nature.getName().equals("Modest") || pokemon_aux.nature.getName().equals("Mild")))
 			{
-				int frameScore = (frame_aux - 3900)/9;
+				int frameScore = (frame_aux - 3900)/7;
+				//potion
+				if(frame_aux > 5300)
+				{
+//					frameScore -= 90;
+				}
+				//save manip
+				if(frame_aux > 5500)
+				{
+//					frameScore -= 40;
+				}
 				
-				double natureScore = pokemon_aux.nature.getName().equals("Rash") ? 250 : 0;
-				double hpScore = Math.max(Math.log(pokemon_aux.hp)*100, 0);
-				double defScore = Math.max(Math.log(pokemon_aux.def)*80, 0);
-				double atkScore = Math.max(Math.log(pokemon_aux.atk)*65, 0);
-				double speScore = Math.max(Math.log(pokemon_aux.spe)*55, 0);
-				double spdScore = Math.max(Math.log(pokemon_aux.spd)*10, 0);
-				double total = hpScore + defScore + atkScore + speScore + spdScore + natureScore -frameScore;
+				double natureScore = pokemon_aux.nature.getName().equals("Rash") ? 150 : 0;
+//				double hpScore = Math.max(Math.log(pokemon_aux.hp)*100, 0);
+				double hpScore = pokemon_aux.hp*11;
+				double defScore = pokemon_aux.def*9;
+				double tankyScore = (Math.min(pokemon_aux.hp,22)*Math.min(pokemon_aux.def,22))/4;
+				double atkScore = pokemon_aux.atk*5;
+				double speScore = pokemon_aux.spe*5;
+				double spdScore = pokemon_aux.spd;
+				double total = hpScore + defScore + atkScore + speScore + spdScore + natureScore +tankyScore -frameScore;
 				
 				 // Original scale: min 0, max 1451
 		        double originalMin = 0;
-		        double originalMax = 1451;
+		        double originalMax = 1232;
 		        
 		        // New scale: min 1, max 100, human readable
-		        double newMin = 30;
-		        double newMax = 105;
+		        double newMin = 20;
+		        double newMax = 115;
 		        normalizedTotal = ((total - originalMin) / (originalMax - originalMin)) * (newMax - newMin) + newMin;
+		        
+		        
+		        
 //		        System.out.println(pokemon_aux.nature.getName());
 //		        System.out.println("FrameScore -"+frameScore);
 //				System.out.println("HP: " + (int)hpScore + "\nDEF: " + (int)defScore +"\nAT: " + (int)atkScore +"\nSPE: " + (int)speScore +"\nSPD: " + (int)spdScore + "\nNature score: " + (int)natureScore + "\nTotal score: " + (int)total);
