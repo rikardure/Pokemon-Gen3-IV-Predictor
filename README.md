@@ -29,6 +29,8 @@ Squirtles below 45 are not worth running and only good for turtle soup. It felt 
 
 * Amazing 90+
 
+If the difference between scores is <5, then prioritize the earlier squirtle if the time difference is more than 2s.
+
 # Behind scoring
 
 The later a squirtle arrives, the more punishment the score receives.
