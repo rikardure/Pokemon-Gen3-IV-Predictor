@@ -50,3 +50,7 @@ The later a squirtle arrives, the more punishment the score receives.
 * Spd * 1
 
 Add these together for a total score and normalize it on a scale of 30-100
+
+# Other
+
+Saving will create a `preset.json` where the preset is stored. 
