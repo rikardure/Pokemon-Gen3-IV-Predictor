@@ -28,3 +28,25 @@ Squirtles below 45 are not worth running and only good for turtle soup. It felt 
 * Great 75-90
 
 * Amazing 90+
+
+# Behind scoring
+
+The later a squirtle arrives, the more punishment the score receives.
+
+* (Current frame - 3900)/7, this will be subtracted from the "total"
+
+* Rash Nature gives a few bonus points (150)
+
+* HP * 11
+
+* Def * 9
+
+* Tankiness (HP * DEF)/4
+
+* Atk * 5
+
+* Spe * 5
+
+* Spd * 1
+
+Add these together for a total score and normalize it on a scale of 30-100
