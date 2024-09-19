@@ -118,23 +118,23 @@ public class PokemonFoundPanel extends JPanel{
 									
 									if(pokemon_aux.spa > 28 && (pokemon_aux.nature.getName().equals("Rash") || pokemon_aux.nature.getName().equals("Modest") || pokemon_aux.nature.getName().equals("Mild")))
 									{
-										int frameScore = (frame_aux - 3900)/8;
+										int frameScore = (frame_aux - 3900)/7;
 										//potion
 										if(frame_aux > 5300)
 										{
-											frameScore -= 90;
+//											frameScore -= 90;
 										}
 										//save manip
 										if(frame_aux > 5500)
 										{
-											frameScore -= 40;
+//											frameScore -= 40;
 										}
 										
 										double natureScore = pokemon_aux.nature.getName().equals("Rash") ? 150 : 0;
 //										double hpScore = Math.max(Math.log(pokemon_aux.hp)*100, 0);
 										double hpScore = pokemon_aux.hp*11;
 										double defScore = pokemon_aux.def*9;
-										double tankyScore = (pokemon_aux.hp*pokemon_aux.def)/4;
+										double tankyScore = (Math.min(pokemon_aux.hp,22)*Math.min(pokemon_aux.def,22))/4;
 										double atkScore = pokemon_aux.atk*5;
 										double speScore = pokemon_aux.spe*5;
 										double spdScore = pokemon_aux.spd;
@@ -142,7 +142,7 @@ public class PokemonFoundPanel extends JPanel{
 										
 										 // Original scale: min 0, max 1451
 								        double originalMin = 0;
-								        double originalMax = 1351;
+								        double originalMax = 1232;
 								        
 								        // New scale: min 1, max 100, human readable
 								        double newMin = 20;
