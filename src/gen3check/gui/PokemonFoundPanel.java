@@ -103,7 +103,7 @@ public class PokemonFoundPanel extends JPanel{
 									//rash gives 250 points
 									//ln hp,
 									
-									//to set stats at max = 1451 (if you roll a rash)
+									//to set stats at max = 1232 (if you roll a rash)
 //									frame_aux = 3900;
 //									pokemon_aux.hp=31;
 //									pokemon_aux.atk=31;
@@ -148,10 +148,14 @@ public class PokemonFoundPanel extends JPanel{
 								        double newMin = 20;
 								        double newMax = 115;
 								        normalizedTotal = ((total - originalMin) / (originalMax - originalMin)) * (newMax - newMin) + newMin;
+								        if(pokemon_aux.spa == 31)
+								        {
+								        	normalizedTotal++;
+								        }
 								        
 //								        System.out.println(pokemon_aux.nature.getName());
 //								        System.out.println("FrameScore -"+frameScore);
-//										System.out.println("HP: " + (int)hpScore + "\nDEF: " + (int)defScore +"\nAT: " + (int)atkScore +"\nSPE: " + (int)speScore +"\nSPD: " + (int)spdScore + "\nNature score: " + (int)natureScore + "\nTotal score: " + (int)total);
+//										System.out.println("HP: " + (int)hpScore + "\nDEF: " + (int)defScore +"\nAT: " + (int)atkScore +"\nSPE: " + (int)speScore +"\nSPD: " + (int)spdScore + "\nNature score: " + (int)natureScore + "\nTankiness score: " + (int)tankyScore + "\nTotal score: " + (int)total);
 //										System.out.println("Normalized total: " + (int) normalizedTotal);
 									}
 									
@@ -268,7 +272,10 @@ public class PokemonFoundPanel extends JPanel{
 		        double newMin = 20;
 		        double newMax = 115;
 		        normalizedTotal = ((total - originalMin) / (originalMax - originalMin)) * (newMax - newMin) + newMin;
-		        
+		        if(pokemon_aux.spa == 31)
+		        {
+		        	normalizedTotal++;
+		        }
 		        
 		        
 //		        System.out.println(pokemon_aux.nature.getName());
