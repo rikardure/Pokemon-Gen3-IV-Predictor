@@ -53,6 +53,8 @@ The later a squirtle arrives, the more punishment the score receives.
 
 Add these together for a total score and normalize it on a scale of 30-100
 
+As a general rule: If the score difference is less than 5, choose the earlier one, except when the time difference is less than 2 seconds.
+
 # Other
 
 Saving will create a `preset.json` where the preset is stored. 
