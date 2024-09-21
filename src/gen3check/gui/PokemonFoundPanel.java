@@ -95,15 +95,18 @@ public class PokemonFoundPanel extends JPanel{
 									int frame_aux = pokemonList.get(i).getFrame();
 									HiddenPowerRNG hpow = new HiddenPowerRNG(pokemon_aux);
 									
-									//calculate score
-//									int score = pokemon_aux.hp * 5 + 
-									//rash with good hp and defense, not late highest prio is the king
+									//score weights
+									int frameScoreWeight;
+									int hpScoreWeight;
+									int atkScoreWeight;
+									int defScoreWeight;
+									int spdScoreWeight;
+									int speScoreWeight;
+									int tankScoreWeight;
+									int doubleSpeedScoreWeight;
+									int maxScore;
 									
-									//1,610 frame window
-									//rash gives 250 points
-									//ln hp,
-									
-									//to set stats at max = 1232 (if you roll a rash)
+									//to set stats at max = 1232 (if you roll a rash), 1393 for any%
 //									frame_aux = 3900;
 //									pokemon_aux.hp=31;
 //									pokemon_aux.atk=31;
@@ -112,13 +115,40 @@ public class PokemonFoundPanel extends JPanel{
 //									pokemon_aux.def=31;
 //									pokemon_aux.spa=31;
 									
+									if(rp.getRunType() == 1)
+									{
+										frameScoreWeight = 7; //negative
+										hpScoreWeight = 11;
+										defScoreWeight = 9;
+										atkScoreWeight = 5;
+										speScoreWeight = 5; //negative
+										spdScoreWeight = 1;
+										tankScoreWeight = 4;
+										doubleSpeedScoreWeight = 0;
+										
+										maxScore = 1232;
+									}
+									else
+									{
+										frameScoreWeight = 7; //negative
+										hpScoreWeight = 10; 
+										defScoreWeight = 10;
+										atkScoreWeight = 4;
+										speScoreWeight = 12;
+										spdScoreWeight = 1;
+										tankScoreWeight = 4; //negative
+										doubleSpeedScoreWeight = 15;
+										
+										maxScore = 1478;
+									}
+									
 									double normalizedTotal = 0;
 									//frame 5300 accounts for potion
 									
 									
 									if(pokemon_aux.spa > 28 && (pokemon_aux.nature.getName().equals("Rash") || pokemon_aux.nature.getName().equals("Modest") || pokemon_aux.nature.getName().equals("Mild")))
 									{
-										int frameScore = (frame_aux - 3900)/7;
+										int frameScore = (frame_aux - 3900)/frameScoreWeight;
 										//potion
 										if(frame_aux > 5300)
 										{
@@ -132,17 +162,17 @@ public class PokemonFoundPanel extends JPanel{
 										
 										double natureScore = pokemon_aux.nature.getName().equals("Rash") ? 150 : 0;
 //										double hpScore = Math.max(Math.log(pokemon_aux.hp)*100, 0);
-										double hpScore = pokemon_aux.hp*11;
-										double defScore = pokemon_aux.def*9;
-										double tankyScore = (Math.min(pokemon_aux.hp,22)*Math.min(pokemon_aux.def,22))/4;
-										double atkScore = pokemon_aux.atk*5;
-										double speScore = pokemon_aux.spe*5;
-										double spdScore = pokemon_aux.spd;
+										double hpScore = pokemon_aux.hp*hpScoreWeight;
+										double defScore = pokemon_aux.def*defScoreWeight;
+										double tankyScore = (Math.min(pokemon_aux.hp,22)*Math.min(pokemon_aux.def,22))/tankScoreWeight;
+										double atkScore = pokemon_aux.atk*atkScoreWeight;
+										double speScore = pokemon_aux.spe*speScoreWeight + (pokemon_aux.spe-27)*doubleSpeedScoreWeight;
+										double spdScore = pokemon_aux.spd*spdScoreWeight;
 										double total = hpScore + defScore + atkScore + speScore + spdScore + natureScore +tankyScore -frameScore;
 										
 										 // Original scale: min 0, max 1451
 								        double originalMin = 0;
-								        double originalMax = 1232;
+								        double originalMax = Double.valueOf(maxScore);
 								        
 								        // New scale: min 1, max 100, human readable
 								        double newMin = 20;
@@ -153,10 +183,10 @@ public class PokemonFoundPanel extends JPanel{
 								        	normalizedTotal++;
 								        }
 								        
-//								        System.out.println(pokemon_aux.nature.getName());
-//								        System.out.println("FrameScore -"+frameScore);
-//										System.out.println("HP: " + (int)hpScore + "\nDEF: " + (int)defScore +"\nAT: " + (int)atkScore +"\nSPE: " + (int)speScore +"\nSPD: " + (int)spdScore + "\nNature score: " + (int)natureScore + "\nTankiness score: " + (int)tankyScore + "\nTotal score: " + (int)total);
-//										System.out.println("Normalized total: " + (int) normalizedTotal);
+								        System.out.println(pokemon_aux.nature.getName());
+								        System.out.println("FrameScore -"+frameScore);
+										System.out.println("HP: " + (int)hpScore + "\nDEF: " + (int)defScore +"\nAT: " + (int)atkScore +"\nSPE: " + (int)speScore +"\nSPD: " + (int)spdScore + "\nNature score: " + (int)natureScore + "\nTankiness score: " + (int)tankyScore + "\nTotal score: " + (int)total);
+										System.out.println("Normalized total: " + (int) normalizedTotal);
 									}
 									
 									
@@ -239,10 +269,60 @@ public class PokemonFoundPanel extends JPanel{
 			int frame_aux = pokemonList.get(i).getFrame();
 			HiddenPowerRNG hpow = new HiddenPowerRNG(pokemon_aux);
 			
+			//score weights
+			int frameScoreWeight;
+			int hpScoreWeight;
+			int atkScoreWeight;
+			int defScoreWeight;
+			int spdScoreWeight;
+			int speScoreWeight;
+			int tankScoreWeight;
+			int doubleSpeedScoreWeight;
+			int maxScore;
+			
+			//to set stats at max = 1232 (if you roll a rash), 1393 for any%
+//			frame_aux = 3900;
+//			pokemon_aux.hp=31;
+//			pokemon_aux.atk=31;
+//			pokemon_aux.spe=31;
+//			pokemon_aux.spd=31;
+//			pokemon_aux.def=31;
+//			pokemon_aux.spa=31;
+			
+			if(rp.getRunType() == 1)
+			{
+				frameScoreWeight = 7; //negative
+				hpScoreWeight = 11;
+				defScoreWeight = 9;
+				atkScoreWeight = 5;
+				speScoreWeight = 5; //negative
+				spdScoreWeight = 1;
+				tankScoreWeight = 4;
+				doubleSpeedScoreWeight = 0; //not needed for FRR2
+				
+				maxScore = 1232;
+			}
+			else
+			{
+				frameScoreWeight = 7; //negative
+				hpScoreWeight = 10; 
+				defScoreWeight = 10;
+				atkScoreWeight = 4;
+				speScoreWeight = 12;
+				spdScoreWeight = 1;
+				tankScoreWeight = 4; //negative
+				doubleSpeedScoreWeight = 15;
+				
+				maxScore = 1523;
+			}
+			
 			double normalizedTotal = 0;
+			//frame 5300 accounts for potion
+			
+			
 			if(pokemon_aux.spa > 28 && (pokemon_aux.nature.getName().equals("Rash") || pokemon_aux.nature.getName().equals("Modest") || pokemon_aux.nature.getName().equals("Mild")))
 			{
-				int frameScore = (frame_aux - 3900)/7;
+				int frameScore = (frame_aux - 3900)/frameScoreWeight;
 				//potion
 				if(frame_aux > 5300)
 				{
@@ -256,17 +336,17 @@ public class PokemonFoundPanel extends JPanel{
 				
 				double natureScore = pokemon_aux.nature.getName().equals("Rash") ? 150 : 0;
 //				double hpScore = Math.max(Math.log(pokemon_aux.hp)*100, 0);
-				double hpScore = pokemon_aux.hp*11;
-				double defScore = pokemon_aux.def*9;
-				double tankyScore = (Math.min(pokemon_aux.hp,22)*Math.min(pokemon_aux.def,22))/4;
-				double atkScore = pokemon_aux.atk*5;
-				double speScore = pokemon_aux.spe*5;
-				double spdScore = pokemon_aux.spd;
+				double hpScore = pokemon_aux.hp*hpScoreWeight;
+				double defScore = pokemon_aux.def*defScoreWeight;
+				double tankyScore = (Math.min(pokemon_aux.hp,22)*Math.min(pokemon_aux.def,22))/tankScoreWeight;
+				double atkScore = pokemon_aux.atk*atkScoreWeight;
+				double speScore = pokemon_aux.spe*speScoreWeight + (pokemon_aux.spe-24)*doubleSpeedScoreWeight;
+				double spdScore = pokemon_aux.spd*spdScoreWeight;
 				double total = hpScore + defScore + atkScore + speScore + spdScore + natureScore +tankyScore -frameScore;
 				
 				 // Original scale: min 0, max 1451
 		        double originalMin = 0;
-		        double originalMax = 1232;
+		        double originalMax = Double.valueOf(maxScore);
 		        
 		        // New scale: min 1, max 100, human readable
 		        double newMin = 20;
