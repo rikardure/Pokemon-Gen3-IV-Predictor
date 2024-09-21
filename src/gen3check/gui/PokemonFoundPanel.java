@@ -115,32 +115,18 @@ public class PokemonFoundPanel extends JPanel{
 //									pokemon_aux.def=31;
 //									pokemon_aux.spa=31;
 									
-									if(rp.getRunType() == 1)
-									{
-										frameScoreWeight = 7; //negative
-										hpScoreWeight = 11;
-										defScoreWeight = 9;
-										atkScoreWeight = 5;
-										speScoreWeight = 5; //negative
-										spdScoreWeight = 1;
-										tankScoreWeight = 4;
-										doubleSpeedScoreWeight = 0;
-										
-										maxScore = 1232;
-									}
-									else
-									{
-										frameScoreWeight = 7; //negative
-										hpScoreWeight = 10; 
-										defScoreWeight = 10;
-										atkScoreWeight = 4;
-										speScoreWeight = 12;
-										spdScoreWeight = 1;
-										tankScoreWeight = 4; //negative
-										doubleSpeedScoreWeight = 15;
-										
-										maxScore = 1478;
-									}
+									frameScoreWeight = rp.getScoreWeights().getTime_weight(); //negative
+									frameScoreWeight = frameScoreWeight == 0 ? 1 : frameScoreWeight;
+									hpScoreWeight = rp.getScoreWeights().getHP_weight();;
+									defScoreWeight = rp.getScoreWeights().getDefense_weight();
+									atkScoreWeight = rp.getScoreWeights().getAttack_weight();
+									speScoreWeight = rp.getScoreWeights().getSpeed_weight(); 
+									spdScoreWeight = rp.getScoreWeights().getSpDef_weight();
+									tankScoreWeight = 4;
+									doubleSpeedScoreWeight = rp.getRunType()==1 ? 0 : 15;
+									
+									maxScore = rp.getScoreWeights().getTotalScore(rp.getRunType());
+//									System.out.println(rp.getScoreWeights().getTotalScore());
 									
 									double normalizedTotal = 0;
 									//frame 5300 accounts for potion
@@ -183,10 +169,10 @@ public class PokemonFoundPanel extends JPanel{
 								        	normalizedTotal++;
 								        }
 								        
-								        System.out.println(pokemon_aux.nature.getName());
-								        System.out.println("FrameScore -"+frameScore);
-										System.out.println("HP: " + (int)hpScore + "\nDEF: " + (int)defScore +"\nAT: " + (int)atkScore +"\nSPE: " + (int)speScore +"\nSPD: " + (int)spdScore + "\nNature score: " + (int)natureScore + "\nTankiness score: " + (int)tankyScore + "\nTotal score: " + (int)total);
-										System.out.println("Normalized total: " + (int) normalizedTotal);
+//								        System.out.println(pokemon_aux.nature.getName());
+//								        System.out.println("FrameScore -"+frameScore);
+//										System.out.println("HP: " + (int)hpScore + "\nDEF: " + (int)defScore +"\nAT: " + (int)atkScore +"\nSPE: " + (int)speScore +"\nSPD: " + (int)spdScore + "\nNature score: " + (int)natureScore + "\nTankiness score: " + (int)tankyScore + "\nTotal score: " + (int)total);
+//										System.out.println("Normalized total: " + (int) normalizedTotal);
 									}
 									
 									
@@ -291,7 +277,8 @@ public class PokemonFoundPanel extends JPanel{
 			
 			if(rp.getRunType() == 1)
 			{
-				frameScoreWeight = 7; //negative
+				frameScoreWeight = rp.getScoreWeights().getTime_weight(); //negative
+				System.out.println("HELLO"+rp.getScoreWeights().getTime_weight());
 				hpScoreWeight = 11;
 				defScoreWeight = 9;
 				atkScoreWeight = 5;

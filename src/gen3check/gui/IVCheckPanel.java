@@ -28,6 +28,7 @@ import gen3check.pokemon.data.PokemonData;
 import gen3check.pokemon.data.StatPack;
 import gen3check.preset.PresetDTO;
 import gen3check.preset.PresetRepo;
+import gen3check.preset.ScoreWeights;
 import gen3check.util.ComboBoxUtil;
 import gen3check.util.DataListUtil;
 import gen3check.pokemon.data.Data;
@@ -314,7 +315,15 @@ public class IVCheckPanel extends JPanel{
 										Integer.parseInt(txtSpe[2].getText()),
 										Integer.parseInt(txtMinFrame.getText()),
 										Integer.parseInt(txtMaxFrame.getText()),
-										natures);
+										natures,
+										rp.getScoreWeights().getTime_weight(),
+										rp.getScoreWeights().getHP_weight(),
+										rp.getScoreWeights().getAttack_weight(),
+										rp.getScoreWeights().getDefense_weight(),
+										rp.getScoreWeights().getSpAtk_weight(),
+										rp.getScoreWeights().getSpDef_weight(),
+										rp.getScoreWeights().getSpeed_weight()
+										);
 								PresetRepo repository =	new PresetRepo();
 								repository.save(preset);
 							}
@@ -360,6 +369,29 @@ public class IVCheckPanel extends JPanel{
 									boxes[i].setSelected(natures.get(i));
 								}
 								
+								if(preset.getTime_weight() == 0)
+								{
+									rp.setWeights(new ScoreWeights(rp.getRunType()));
+								}
+								else
+								{
+								rp.setWeights(new ScoreWeights(
+										preset.getTime_weight(),
+										preset.getHP_weight(),
+										preset.getAttack_weight(),
+										preset.getDefense_weight(),
+										preset.getSpAtk_weight(),
+										preset.getSpDef_weight(),
+										preset.getSpeed_weight())
+										);
+								}
+								rp.getTimeWeight().setText("Time: " + rp.getScoreWeights().getTime_weight());
+								rp.getHPweight().setText("HP: " + rp.getScoreWeights().getHP_weight());
+								rp.getAtkweight().setText("Atk: " + rp.getScoreWeights().getAttack_weight());
+								rp.getDefweight().setText("Def: " + rp.getScoreWeights().getDefense_weight());
+								rp.getSpaweight().setText("SpA: " + rp.getScoreWeights().getSpAtk_weight());
+								rp.getSpdweight().setText("SpD: " + rp.getScoreWeights().getSpDef_weight());
+								rp.getSpeweight().setText("Spe: " + rp.getScoreWeights().getSpeed_weight());
 							}
 						});
 					}
