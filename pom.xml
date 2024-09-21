@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>PKGen3</groupId>
   <artifactId>Gen3Predictor</artifactId>
-  <version>1.4d</version>
+  <version>1.6a</version>
   <name>Gen3Predictor</name>
  <build>
     <sourceDirectory>src</sourceDirectory>

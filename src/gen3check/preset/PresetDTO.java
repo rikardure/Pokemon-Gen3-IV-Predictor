@@ -24,6 +24,17 @@ public class PresetDTO {
 	 private Integer max_frame;
 	private List<Boolean> natures;
 	
+	
+	 private int time_weight;
+	 private int HP_weight;
+	 private int Attack_weight;
+	 private int Defense_weight;
+	 private int SpAtk_weight;
+	 private int SpDef_weight;
+	 private int Speed_weight;
+	 
+
+	
 	public PresetDTO() {
 	
 	};
@@ -47,7 +58,15 @@ public class PresetDTO {
 			 Integer Speed_plus,
 			 Integer min_frame,
 			 Integer max_frame,
-			 List<Boolean> natures) {
+			 List<Boolean> natures,
+			 int time_weight,
+			 int HP_weight,
+			 int Attack_weight,
+			 int Defense_weight,
+			 int SpAtk_weight,
+			 int SpDef_weight,
+			 int Speed_weight
+			) {
 		// TODO Auto-generated constructor stub
 		this.pokemonId = pokemonId;
 		this.HP = HP;
@@ -69,6 +88,14 @@ public class PresetDTO {
 		this.min_frame = min_frame;
 		this.max_frame = max_frame;
 		this.setNatures(natures);
+		this.time_weight = time_weight;
+		this.HP_weight = HP_weight;
+		this.Attack_weight = Attack_weight;
+		this.Defense_weight = Defense_weight;
+		this.SpAtk_weight = SpAtk_weight;
+		this.SpDef_weight = SpDef_weight;
+		this.Speed_weight = Speed_weight;
+		 
 	}
 	
 	public Integer getHP() {
@@ -186,16 +213,7 @@ public class PresetDTO {
 		this.natures = natures;
 	}
 
-	@Override
-	public String toString() {
-		return "PresetDTO [pokemonId=" + getPokemonId() + ", HP=" + HP + ", Attack_minus=" + Attack_minus
-				+ ", Attack_neutral=" + Attack_neutral + ", Attack_plus=" + Attack_plus + ", Defense_minus="
-				+ Defense_minus + ", Defense_neutral=" + Defense_neutral + ", Defense_plus=" + Defense_plus
-				+ ", SpAtk_minus=" + SpAtk_minus + ", SpAtk_neutral=" + SpAtk_neutral + ", SpAtk_plus=" + SpAtk_plus
-				+ ", SpDef_minus=" + SpDef_minus + ", SpDef_neutral=" + SpDef_neutral + ", SpDef_plus=" + SpDef_plus
-				+ ", Speed_minus=" + Speed_minus + ", Speed_neutral=" + Speed_neutral + ", Speed_plus=" + Speed_plus
-				+ ", min_frame=" + min_frame + ", max_frame=" + max_frame + ", natures=" + natures + "]";
-	}
+
 
 	public Integer getPokemonId() {
 		return pokemonId;
@@ -203,6 +221,76 @@ public class PresetDTO {
 
 	public void setPokemonId(Integer pokemonId) {
 		this.pokemonId = pokemonId;
+	}
+
+	public int getTime_weight() {
+		return time_weight;
+	}
+
+	public void setTime_weight(int time_weight) {
+		this.time_weight = time_weight;
+	}
+
+	public int getHP_weight() {
+		return HP_weight;
+	}
+
+	public void setHP_weight(int hP_weight) {
+		HP_weight = hP_weight;
+	}
+
+	public int getAttack_weight() {
+		return Attack_weight;
+	}
+
+	public void setAttack_weight(int attack_weight) {
+		Attack_weight = attack_weight;
+	}
+
+	public int getDefense_weight() {
+		return Defense_weight;
+	}
+
+	public void setDefense_weight(int defense_weight) {
+		Defense_weight = defense_weight;
+	}
+
+	public int getSpAtk_weight() {
+		return SpAtk_weight;
+	}
+
+	public void setSpAtk_weight(int spAtk_weight) {
+		SpAtk_weight = spAtk_weight;
+	}
+
+	public int getSpDef_weight() {
+		return SpDef_weight;
+	}
+
+	public void setSpDef_weight(int spDef_weight) {
+		SpDef_weight = spDef_weight;
+	}
+
+	public int getSpeed_weight() {
+		return Speed_weight;
+	}
+
+	public void setSpeed_weight(int speed_weight) {
+		Speed_weight = speed_weight;
+	}
+
+	@Override
+	public String toString() {
+		return "PresetDTO [pokemonId=" + pokemonId + ", HP=" + HP + ", Attack_minus=" + Attack_minus
+				+ ", Attack_neutral=" + Attack_neutral + ", Attack_plus=" + Attack_plus + ", Defense_minus="
+				+ Defense_minus + ", Defense_neutral=" + Defense_neutral + ", Defense_plus=" + Defense_plus
+				+ ", SpAtk_minus=" + SpAtk_minus + ", SpAtk_neutral=" + SpAtk_neutral + ", SpAtk_plus=" + SpAtk_plus
+				+ ", SpDef_minus=" + SpDef_minus + ", SpDef_neutral=" + SpDef_neutral + ", SpDef_plus=" + SpDef_plus
+				+ ", Speed_minus=" + Speed_minus + ", Speed_neutral=" + Speed_neutral + ", Speed_plus=" + Speed_plus
+				+ ", min_frame=" + min_frame + ", max_frame=" + max_frame + ", natures=" + natures + ", time_weight="
+				+ time_weight + ", HP_weight=" + HP_weight + ", Attack_weight=" + Attack_weight + ", Defense_weight="
+				+ Defense_weight + ", SpAtk_weight=" + SpAtk_weight + ", SpDef_weight=" + SpDef_weight
+				+ ", Speed_weight=" + Speed_weight + "]";
 	}
 	
 }
