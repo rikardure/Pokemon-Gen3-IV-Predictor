@@ -3,6 +3,7 @@ package gen3check.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -13,6 +14,8 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -49,6 +52,11 @@ public class RestPanel extends JPanel{
 		this.selectedPokemon = new Pokemon();
 		this.chkNature = new JCheckBox[Nature.NATURE_N];
 		this.pkmFoundPanel = new PokemonFoundPanel(mw,c,this);
+		this.runType = new JComboBox<String>(new String[] { "Elite 4 Round 2 Score", "Any% Glitchless Score" }) {
+            {
+                this.setPreferredSize(new Dimension(100, 30)); // Optional: Customize size
+            }
+        };
 		this.BOXPANEL = new ImageIcon(RestPanel.class.getResource("/image/thebox2.png")).getImage();
 		this.setLayout(new BorderLayout());
 		this.add(new JPanel(){
@@ -97,66 +105,92 @@ public class RestPanel extends JPanel{
 					
 			}
 		}, BorderLayout.NORTH);
+		
+		
+		
 		this.add(pkmFoundPanel, BorderLayout.CENTER);
-		this.add(new JPanel(){
-			{
-				this.setLayout(new BorderLayout());
-				this.add(new JPanel(){
-					{
-						this.setLayout(new GridLayout(1,3));
-						this.add(new JPanel(){
-							{
-								this.setPreferredSize(new Dimension(205,75));
-							}
-							@Override
-							public void paint(Graphics g) {
-								g.drawImage(BOXPANEL,0,0,200,72,this);
-								g.setColor(Color.WHITE);
-								g.setFont(new Font("default", Font.BOLD,12));
-								g.drawString(Integer.toString(selectedPokemon.IV.hp), 19 - Integer.toString(selectedPokemon.IV.hp).length() * 4, 38);
-								g.drawString(Integer.toString(selectedPokemon.IV.atk), 51 - Integer.toString(selectedPokemon.IV.atk).length() * 4, 38);
-								g.drawString(Integer.toString(selectedPokemon.IV.def), 83 - Integer.toString(selectedPokemon.IV.def).length() * 4, 38);
-								g.drawString(Integer.toString(selectedPokemon.IV.spa), 115 - Integer.toString(selectedPokemon.IV.spa).length() * 4, 38);
-								g.drawString(Integer.toString(selectedPokemon.IV.spd), 147 - Integer.toString(selectedPokemon.IV.spd).length() * 4, 38);
-								g.drawString(Integer.toString(selectedPokemon.IV.spe), 179 - Integer.toString(selectedPokemon.IV.spe).length() * 4, 38);
-								g.drawString(" " + selectedPokemon.getNature().toString(), 85, 64);
-							}
-						
-						});
-						this.add(new JPanel(){
-							{
-								this.setPreferredSize(new Dimension(205,75));
-							}
-							@Override
-							public void paint(Graphics g) {
-								g.drawImage(BOXPANEL,0,0,200,72,this);
-								g.setColor(Color.WHITE);
-								g.setFont(new Font("default", Font.BOLD,12));
-								g.drawString(Integer.toString(selectedPokemon.stat.hp), 19 - Integer.toString(selectedPokemon.stat.hp).length() * 4, 38);
-								g.drawString(Integer.toString(selectedPokemon.stat.atk), 51 - Integer.toString(selectedPokemon.stat.atk).length() * 4, 38);
-								g.drawString(Integer.toString(selectedPokemon.stat.def), 83 - Integer.toString(selectedPokemon.stat.def).length() * 4, 38);
-								g.drawString(Integer.toString(selectedPokemon.stat.spa), 115 - Integer.toString(selectedPokemon.stat.spa).length() * 4, 38);
-								g.drawString(Integer.toString(selectedPokemon.stat.spd), 147 - Integer.toString(selectedPokemon.stat.spd).length() * 4, 38);
-								g.drawString(Integer.toString(selectedPokemon.stat.spe), 179 - Integer.toString(selectedPokemon.stat.spe).length() * 4, 38);
-								g.drawString(" " + selectedPokemon.getNature().toString(), 85, 64);
-							}
-						
-						});
-					}
-				}, BorderLayout.NORTH);
-				this.add(new JButton("Search Around Frame"){
-					{
-						this.setPreferredSize(new Dimension(100,30));
-						this.addActionListener(new ActionListener(){
-							@Override
-							public void actionPerformed(ActionEvent arg0) {
-								pkmFoundPanel.updateGridAround(selectedFrame);
-							}
-						});
-					}
-				}, BorderLayout.CENTER);
-			}
+		
+		this.add(new JPanel() {
+		    {
+		        this.setLayout(new BorderLayout());
+
+		        // Upper panel with multiple components
+		        this.add(new JPanel() {
+		            {
+		                this.setLayout(new GridLayout(1, 3));
+
+		                // First inner panel
+		                this.add(new JPanel() {
+		                    {
+		                        this.setPreferredSize(new Dimension(205, 75));
+		                    }
+
+		                    @Override
+		                    public void paint(Graphics g) {
+		                        g.drawImage(BOXPANEL, 0, 0, 200, 72, this);
+		                        g.setColor(Color.WHITE);
+		                        g.setFont(new Font("default", Font.BOLD, 12));
+		                        g.drawString(Integer.toString(selectedPokemon.IV.hp), 19 - Integer.toString(selectedPokemon.IV.hp).length() * 4, 38);
+		                        g.drawString(Integer.toString(selectedPokemon.IV.atk), 51 - Integer.toString(selectedPokemon.IV.atk).length() * 4, 38);
+		                        g.drawString(Integer.toString(selectedPokemon.IV.def), 83 - Integer.toString(selectedPokemon.IV.def).length() * 4, 38);
+		                        g.drawString(Integer.toString(selectedPokemon.IV.spa), 115 - Integer.toString(selectedPokemon.IV.spa).length() * 4, 38);
+		                        g.drawString(Integer.toString(selectedPokemon.IV.spd), 147 - Integer.toString(selectedPokemon.IV.spd).length() * 4, 38);
+		                        g.drawString(Integer.toString(selectedPokemon.IV.spe), 179 - Integer.toString(selectedPokemon.IV.spe).length() * 4, 38);
+		                        g.drawString(" " + selectedPokemon.getNature().toString(), 85, 64);
+		                    }
+		                });
+
+		                // Second inner panel
+		                this.add(new JPanel() {
+		                    {
+		                        this.setPreferredSize(new Dimension(205, 75));
+		                    }
+
+		                    @Override
+		                    public void paint(Graphics g) {
+		                        g.drawImage(BOXPANEL, 0, 0, 200, 72, this);
+		                        g.setColor(Color.WHITE);
+		                        g.setFont(new Font("default", Font.BOLD, 12));
+		                        g.drawString(Integer.toString(selectedPokemon.stat.hp), 19 - Integer.toString(selectedPokemon.stat.hp).length() * 4, 38);
+		                        g.drawString(Integer.toString(selectedPokemon.stat.atk), 51 - Integer.toString(selectedPokemon.stat.atk).length() * 4, 38);
+		                        g.drawString(Integer.toString(selectedPokemon.stat.def), 83 - Integer.toString(selectedPokemon.stat.def).length() * 4, 38);
+		                        g.drawString(Integer.toString(selectedPokemon.stat.spa), 115 - Integer.toString(selectedPokemon.stat.spa).length() * 4, 38);
+		                        g.drawString(Integer.toString(selectedPokemon.stat.spd), 147 - Integer.toString(selectedPokemon.stat.spd).length() * 4, 38);
+		                        g.drawString(Integer.toString(selectedPokemon.stat.spe), 179 - Integer.toString(selectedPokemon.stat.spe).length() * 4, 38);
+		                        g.drawString(" " + selectedPokemon.getNature().toString(), 85, 64);
+		                    }
+		                });
+		            }
+		        }, BorderLayout.NORTH);
+
+		        // Button in the center
+		        this.add(new JButton("Search Around Frame") {
+		            {
+		                this.setPreferredSize(new Dimension(100, 30));
+		                this.addActionListener(new ActionListener() {
+		                    @Override
+		                    public void actionPerformed(ActionEvent arg0) {
+		                        pkmFoundPanel.updateGridAround(selectedFrame);
+		                    }
+		                });
+		            }
+		        }, BorderLayout.CENTER);
+
+		        // ComboBox in the SOUTH position
+		        this.add(runType, BorderLayout.SOUTH);
+		    }
 		}, BorderLayout.SOUTH);
+	
+	
+
+	
+	
+	
+	}
+	
+	public int getRunType()
+	{
+		return this.runType.getSelectedItem().toString().equals("Elite 4 Round 2 Score") ? 1 : 0;
 	}
 	
 	private JCheckBox[] chkNature;
@@ -167,4 +201,5 @@ public class RestPanel extends JPanel{
 	private Image BOXPANEL;
 	private Pokemon selectedPokemon;
 	private int selectedFrame;
+	private JComboBox<String> runType;
 }

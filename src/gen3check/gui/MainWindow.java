@@ -16,7 +16,7 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static final ImageIcon JFRAME_ICON = new ImageIcon(MainWindow.class.getResource("/image/raikouicon.png"));
 	private int width = 860;
-	private int height = 480;
+	private int height = 530;
 	private Controller controller;
 	private IVCheckPanel ivcheckpanel;
 	private RestPanel restpanel;
