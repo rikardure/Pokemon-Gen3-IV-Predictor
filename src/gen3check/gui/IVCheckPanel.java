@@ -82,10 +82,6 @@ public class IVCheckPanel extends JPanel{
 		txtID.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Get the text entered
-                String input = txtID.getText();
-
-                // Call search function with the input
                 searchButton.doClick();
             }
         });
