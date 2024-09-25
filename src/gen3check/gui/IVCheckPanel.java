@@ -78,6 +78,18 @@ public class IVCheckPanel extends JPanel{
 			this.txtSpe[i] = new IntegerJTextField(2);
 		}
 		this.txtID = new IntegerJTextField(5);
+		
+		txtID.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get the text entered
+                String input = txtID.getText();
+
+                // Call search function with the input
+                searchButton.doClick();
+            }
+        });
+		
 		this.txtMinFrame = new IntegerJTextField(6);
 		this.txtMaxFrame = new IntegerJTextField(6);
 		this.setLayout(new BorderLayout());
@@ -193,70 +205,73 @@ public class IVCheckPanel extends JPanel{
 				this.add(new JPanel() {
 				
 					{
-				this.add(new JButton("Search"){
-					{
-						this.setPreferredSize(new Dimension(70,40));
-						this.addActionListener(new ActionListener(){
-							@Override
-							public void actionPerformed(ActionEvent arg0) {
-								if (txtHP.isEmpty()) txtHP.setText("0");
-								for (int i = 0; i < 3; i++){
-									if (txtAtk[i].isEmpty()) txtAtk[i].setText("0");
-									if (txtDef[i].isEmpty()) txtDef[i].setText("0");
-									if (txtSpa[i].isEmpty()) txtSpa[i].setText("0");
-									if (txtSpd[i].isEmpty()) txtSpd[i].setText("0");
-									if (txtSpe[i].isEmpty()) txtSpe[i].setText("0");
-								}
-								if (txtID.isEmpty()) txtID.setText("0");
-								if (Integer.parseInt(txtID.getText()) > 65535) txtID.setText("0");
-								if (Integer.parseInt(txtHP.getText()) > 31) txtHP.setText("31");
-								for (int i = 0; i < 3; i++){
-									if (Integer.parseInt(txtAtk[i].getText()) > 31) txtAtk[i].setText("31");
-									if (Integer.parseInt(txtDef[i].getText()) > 31) txtDef[i].setText("31");
-									if (Integer.parseInt(txtSpa[i].getText()) > 31) txtSpa[i].setText("31");
-									if (Integer.parseInt(txtSpd[i].getText()) > 31) txtSpd[i].setText("31");
-									if (Integer.parseInt(txtSpe[i].getText()) > 31) txtSpe[i].setText("31");
-								}
-								if (txtMinFrame.isEmpty()) txtMinFrame.setText("0");
-								if (txtMaxFrame.isEmpty()) txtMaxFrame.setText("0");
-								if (Integer.parseInt(txtMaxFrame.getText()) < Integer.parseInt(txtMinFrame.getText())){
-									txtMaxFrame.setText(txtMinFrame.getText());
-								}
-								c.search(
-										Integer.parseInt(txtMinFrame.getText()),
-										Integer.parseInt(txtMaxFrame.getText()),
-										Integer.parseInt(txtID.getText()),
-										((PokemonData) cmbPokemon.getSelectedItem()).getID(),
-										new StatPack(
-											Integer.parseInt(txtHP.getText()),
-											Integer.parseInt(txtAtk[0].getText()),
-											Integer.parseInt(txtDef[0].getText()),
-											Integer.parseInt(txtSpa[0].getText()),
-											Integer.parseInt(txtSpd[0].getText()),
-											Integer.parseInt(txtSpe[0].getText())	
-										),
-										new StatPack(
-											Integer.parseInt(txtHP.getText()),
-											Integer.parseInt(txtAtk[1].getText()),
-											Integer.parseInt(txtDef[1].getText()),
-											Integer.parseInt(txtSpa[1].getText()),
-											Integer.parseInt(txtSpd[1].getText()),
-											Integer.parseInt(txtSpe[1].getText())	
-										),
-										new StatPack(
-											Integer.parseInt(txtHP.getText()),
-											Integer.parseInt(txtAtk[2].getText()),
-											Integer.parseInt(txtDef[2].getText()),
-											Integer.parseInt(txtSpa[2].getText()),
-											Integer.parseInt(txtSpd[2].getText()),
-											Integer.parseInt(txtSpe[2].getText())	
-										),
-										rp.getNatures()
-										);
+						
+						searchButton = new JButton("Search"){
+							{
+								this.setPreferredSize(new Dimension(70,40));
+								this.addActionListener(new ActionListener(){
+									@Override
+									public void actionPerformed(ActionEvent arg0) {
+										if (txtHP.isEmpty()) txtHP.setText("0");
+										for (int i = 0; i < 3; i++){
+											if (txtAtk[i].isEmpty()) txtAtk[i].setText("0");
+											if (txtDef[i].isEmpty()) txtDef[i].setText("0");
+											if (txtSpa[i].isEmpty()) txtSpa[i].setText("0");
+											if (txtSpd[i].isEmpty()) txtSpd[i].setText("0");
+											if (txtSpe[i].isEmpty()) txtSpe[i].setText("0");
+										}
+										if (txtID.isEmpty()) txtID.setText("0");
+										if (Integer.parseInt(txtID.getText()) > 65535) txtID.setText("0");
+										if (Integer.parseInt(txtHP.getText()) > 31) txtHP.setText("31");
+										for (int i = 0; i < 3; i++){
+											if (Integer.parseInt(txtAtk[i].getText()) > 31) txtAtk[i].setText("31");
+											if (Integer.parseInt(txtDef[i].getText()) > 31) txtDef[i].setText("31");
+											if (Integer.parseInt(txtSpa[i].getText()) > 31) txtSpa[i].setText("31");
+											if (Integer.parseInt(txtSpd[i].getText()) > 31) txtSpd[i].setText("31");
+											if (Integer.parseInt(txtSpe[i].getText()) > 31) txtSpe[i].setText("31");
+										}
+										if (txtMinFrame.isEmpty()) txtMinFrame.setText("0");
+										if (txtMaxFrame.isEmpty()) txtMaxFrame.setText("0");
+										if (Integer.parseInt(txtMaxFrame.getText()) < Integer.parseInt(txtMinFrame.getText())){
+											txtMaxFrame.setText(txtMinFrame.getText());
+										}
+										c.search(
+												Integer.parseInt(txtMinFrame.getText()),
+												Integer.parseInt(txtMaxFrame.getText()),
+												Integer.parseInt(txtID.getText()),
+												((PokemonData) cmbPokemon.getSelectedItem()).getID(),
+												new StatPack(
+													Integer.parseInt(txtHP.getText()),
+													Integer.parseInt(txtAtk[0].getText()),
+													Integer.parseInt(txtDef[0].getText()),
+													Integer.parseInt(txtSpa[0].getText()),
+													Integer.parseInt(txtSpd[0].getText()),
+													Integer.parseInt(txtSpe[0].getText())	
+												),
+												new StatPack(
+													Integer.parseInt(txtHP.getText()),
+													Integer.parseInt(txtAtk[1].getText()),
+													Integer.parseInt(txtDef[1].getText()),
+													Integer.parseInt(txtSpa[1].getText()),
+													Integer.parseInt(txtSpd[1].getText()),
+													Integer.parseInt(txtSpe[1].getText())	
+												),
+												new StatPack(
+													Integer.parseInt(txtHP.getText()),
+													Integer.parseInt(txtAtk[2].getText()),
+													Integer.parseInt(txtDef[2].getText()),
+													Integer.parseInt(txtSpa[2].getText()),
+													Integer.parseInt(txtSpd[2].getText()),
+													Integer.parseInt(txtSpe[2].getText())	
+												),
+												rp.getNatures()
+												);
+									}
+								});
 							}
-						});
-					}
-				}, BorderLayout.NORTH);
+						};
+						
+				this.add(searchButton, BorderLayout.NORTH);
 				
 				this.add(new JButton("Save") {
 					{
@@ -418,6 +433,7 @@ public class IVCheckPanel extends JPanel{
 	private IntegerJTextField txtSpd[];
 	private IntegerJTextField txtSpe[];
 	private IntegerJTextField txtID;
+	private JButton searchButton;
 	private IntegerJTextField txtMaxFrame;
 	private IntegerJTextField txtMinFrame;
 	private JComboBox<PokemonData> cmbPokemon;
