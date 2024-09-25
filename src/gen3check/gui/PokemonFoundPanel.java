@@ -107,12 +107,12 @@ public class PokemonFoundPanel extends JPanel{
 									int maxScore;
 									
 									//to set stats at max = 1232 (if you roll a rash), 1393 for any%
-//									frame_aux = 3900;
-//									pokemon_aux.hp=31;
-//									pokemon_aux.atk=31;
-//									pokemon_aux.spe=31;
-//									pokemon_aux.spd=31;
-//									pokemon_aux.def=31;
+//									frame_aux = 4100;
+//									pokemon_aux.hp=24;
+//									pokemon_aux.atk=24;
+//									pokemon_aux.spe=30;
+//									pokemon_aux.spd=20;
+//									pokemon_aux.def=29;
 //									pokemon_aux.spa=31;
 									
 									frameScoreWeight = rp.getScoreWeights().getTime_weight(); //negative
