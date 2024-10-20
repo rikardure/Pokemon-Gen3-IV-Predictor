@@ -1,4 +1,4 @@
-![squirtlescore](https://github.com/user-attachments/assets/d8991f7a-0d28-4e78-9cf6-672146648dab)# Pokemon-Gen3-IV-Predictor
+# Pokemon-Gen3-IV-Predictor
 Predict Gen 3 IV Predictor
 
 1. Go to releases
