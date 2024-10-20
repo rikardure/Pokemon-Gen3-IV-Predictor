@@ -1,4 +1,4 @@
-# Pokemon-Gen3-IV-Predictor
+![squirtlescore](https://github.com/user-attachments/assets/d8991f7a-0d28-4e78-9cf6-672146648dab)# Pokemon-Gen3-IV-Predictor
 Predict Gen 3 IV Predictor
 
 1. Go to releases
@@ -60,3 +60,8 @@ As a general rule: If the score difference is less than 5, choose the earlier on
 # Other
 
 Saving will create a `preset.json` where the preset is stored. 
+
+
+![squirtlescore](https://github.com/user-attachments/assets/10c75e0b-7241-439f-bd6f-725c69d99cd7)
+
+Red highlights newly implemented features
